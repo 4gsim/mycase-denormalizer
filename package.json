@@ -1,0 +1,23 @@
+{
+  "name": "mycase-denormalizer",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "start": "node ./bin/start.js",
+    "dev": "nodemon --inspect=0.0.0.0:9229 ./bin/start.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "debug": "^4.1.1",
+    "rethinkdb": "^2.4.2",
+    "servicebus": "^2.3.3",
+    "servicebus-register-handlers": "^0.2.2"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.3"
+  }
+}

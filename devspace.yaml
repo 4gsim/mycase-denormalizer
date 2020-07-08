@@ -1,0 +1,44 @@
+version: v1beta9
+images:
+  app:
+    image: denormalizer/devspace
+    preferSyncOverRebuild: true
+    injectRestartHelper: false
+    cmd: ["npm", "run", "dev"]
+    build:
+      docker:
+        skipPush: true
+        disableFallback: true
+deployments:
+  - name: denormalizer
+    helm:
+      componentChart: true
+      values:
+        containers:
+          - image: denormalizer/devspace
+            env:
+              - name: DEBUG
+                value: "denormalizer:*"
+        service:
+          ports:
+            - port: 9231
+dev:
+  ports:
+    - imageName: app
+      forward:
+        - port: 9231
+  sync:
+    - imageName: app
+      excludePaths:
+        - .git/
+      uploadExcludePaths:
+        - Dockerfile
+        - node_modules/
+        - devspace.yaml
+      onUpload:
+        restartContainer: true
+profiles:
+  - name: production
+    patches:
+      - op: remove
+        path: images.app.injectRestartHelper
